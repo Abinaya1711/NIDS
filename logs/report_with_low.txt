@@ -1,0 +1,63 @@
+
+======================================================================
+          AI-NIDS SUMMARY REPORT
+======================================================================
+
+Report Generated: 2026-06-03 22:35:02
+Report Type: Summary
+
+──────────────────────────────────────────────────────────────────────
+ALERT STATISTICS
+──────────────────────────────────────────────────────────────────────
+
+  Total Alerts   : 678
+  Alerts Today   : 678
+
+  By Severity:
+    Critical     : 0
+    High         : 40
+    Medium       : 634
+    Low          : 4
+
+──────────────────────────────────────────────────────────────────────
+ATTACK CATEGORIES
+──────────────────────────────────────────────────────────────────────
+
+  Policy Violation                         : 638
+  Trojan Detected                          : 40
+
+──────────────────────────────────────────────────────────────────────
+TOP SOURCE IPs
+──────────────────────────────────────────────────────────────────────
+
+  10.16.14.126                             : 394 alerts
+  2401:4900:ca94:a927:c64:e279:e9f1:ad77   : 284 alerts
+
+──────────────────────────────────────────────────────────────────────
+RECENT ALERTS (Last 10)
+──────────────────────────────────────────────────────────────────────
+
+  [LOW ] 2026-06-03T17:04:04  ET POLICY Outbound TCP/UDP connection on dynamic h
+         2401:4900:ca94:a927:c64:e279:e9f1:ad77 → 2a03:2880:f335:120:face:b00c:0:167
+  [LOW ] 2026-06-03T17:04:04  ET POLICY Outbound TCP/UDP connection on dynamic h
+         10.16.14.126 → 155.133.225.21
+  [LOW ] 2026-06-03T17:03:54  ET POLICY Outbound TCP/UDP connection on dynamic h
+         2401:4900:ca94:a927:c64:e279:e9f1:ad77 → 2a03:2880:f335:120:face:b00c:0:167
+  [LOW ] 2026-06-03T17:03:25  ET POLICY Outbound TCP/UDP connection on dynamic h
+         10.16.14.126 → 155.133.225.21
+  [MED ] 2026-06-03T17:02:02  ET POLICY Outbound TCP/UDP connection on unusual h
+         2401:4900:ca94:a927:c64:e279:e9f1:ad77 → 2a03:2880:f335:120:face:b00c:0:167
+  [MED ] 2026-06-03T17:02:02  ET POLICY Outbound TCP/UDP connection on unusual h
+         10.16.14.126 → 155.133.225.21
+  [HIGH] 2026-06-03T17:01:24  ET MALWARE Suspicious DNS query for known Dynamic 
+         10.16.14.126 → 2401:4900:ca94:a927::97
+  [HIGH] 2026-06-03T17:01:21  ET MALWARE Suspicious DNS query for known Dynamic 
+         10.16.14.126 → 0.0.0.151
+  [MED ] 2026-06-03T17:00:58  ET POLICY Outbound TCP/UDP connection on unusual h
+         2401:4900:ca94:a927:c64:e279:e9f1:ad77 → 2a03:2880:f335:120:face:b00c:0:167
+  [MED ] 2026-06-03T17:00:58  ET POLICY Outbound TCP/UDP connection on unusual h
+         10.16.14.126 → 155.133.225.21
+
+======================================================================
+         END OF REPORT — AI-NIDS
+======================================================================

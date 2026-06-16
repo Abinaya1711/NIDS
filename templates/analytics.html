@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+{% block title %}Analytics{% endblock %}
+{% block page_title %}Security Analytics{% endblock %}
+
+{% block content %}
+<div class="analytics-grid">
+    <!-- Severity Distribution -->
+    <div class="card-panel chart-panel" id="severity-dist-panel">
+        <div class="panel-header">
+            <h2><i class="bi bi-pie-chart-fill"></i> Severity Distribution</h2>
+        </div>
+        <div class="chart-container">
+            <canvas id="severityChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Attack Categories -->
+    <div class="card-panel chart-panel" id="category-panel">
+        <div class="panel-header">
+            <h2><i class="bi bi-diagram-3-fill"></i> Attack Categories</h2>
+        </div>
+        <div class="chart-container">
+            <canvas id="categoryChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Alert Timeline -->
+    <div class="card-panel chart-panel wide-panel" id="timeline-panel">
+        <div class="panel-header">
+            <h2><i class="bi bi-graph-up"></i> Alert Timeline</h2>
+            <div class="panel-actions">
+                <select class="filter-select" id="timeline-range" onchange="updateTimeline()">
+                    <option value="1">Last 24 Hours</option>
+                    <option value="7" selected>Last 7 Days</option>
+                    <option value="30">Last 30 Days</option>
+                </select>
+            </div>
+        </div>
+        <div class="chart-container chart-wide">
+            <canvas id="timelineChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Top Source IPs -->
+    <div class="card-panel chart-panel" id="top-ips-chart-panel">
+        <div class="panel-header">
+            <h2><i class="bi bi-geo-alt-fill"></i> Top Source IPs</h2>
+        </div>
+        <div class="chart-container">
+            <canvas id="topIpsChart"></canvas>
+        </div>
+    </div>
+
+    <!-- Protocol Distribution -->
+    <div class="card-panel chart-panel" id="protocol-panel">
+        <div class="panel-header">
+            <h2><i class="bi bi-hdd-network-fill"></i> Alert Statistics</h2>
+        </div>
+        <div class="stats-summary" id="analytics-stats">
+            <div class="summary-item">
+                <span class="summary-value" id="analytics-total">0</span>
+                <span class="summary-label">Total Alerts</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-value" id="analytics-today">0</span>
+                <span class="summary-label">Today</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-value" id="analytics-categories">0</span>
+                <span class="summary-label">Categories</span>
+            </div>
+            <div class="summary-item">
+                <span class="summary-value" id="analytics-ips">0</span>
+                <span class="summary-label">Unique IPs</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadAnalyticsData();
+    });
+</script>
+{% endblock %}

@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+{% block title %}AI Analysis{% endblock %}
+{% block page_title %}AI Threat Analysis{% endblock %}
+
+{% block content %}
+<div class="analysis-layout">
+    <!-- Alert Selector -->
+    <div class="card-panel selector-panel" id="alert-selector-panel">
+        <div class="panel-header">
+            <h2><i class="bi bi-list-check"></i> Select Alert to Analyze</h2>
+        </div>
+        <div class="alert-selector">
+            <div class="selector-controls">
+                <select class="filter-select" id="analysis-severity-filter" onchange="loadAlertsForAnalysis()">
+                    <option value="">All Severities</option>
+                    <option value="1">Critical</option>
+                    <option value="2">High</option>
+                    <option value="3">Medium</option>
+                    <option value="4">Low</option>
+                </select>
+            </div>
+            <div class="alert-list" id="alert-list-for-analysis">
+                <div class="empty-state">
+                    <i class="bi bi-inbox"></i>
+                    <p>No alerts available. Waiting for Suricata to detect threats.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Analysis Result -->
+    <div class="card-panel analysis-result-panel" id="analysis-result-panel">
+        <div class="panel-header">
+            <h2><i class="bi bi-robot"></i> AI Analysis Result</h2>
+            <div class="panel-actions">
+                <span class="ai-badge" id="ai-model-badge">
+                    <i class="bi bi-cpu"></i> Llama 3
+                </span>
+            </div>
+        </div>
+
+        <div class="analysis-content" id="analysis-content">
+            <!-- Default State -->
+            <div class="analysis-placeholder" id="analysis-placeholder">
+                <div class="placeholder-icon">
+                    <i class="bi bi-robot"></i>
+                </div>
+                <h3>Select an Alert to Analyze</h3>
+                <p>Choose an alert from the left panel and click "Analyze with AI" to get an intelligent threat assessment powered by Llama 3.</p>
+                <div class="ai-features">
+                    <div class="feature">
+                        <i class="bi bi-search"></i>
+                        <span>Threat Explanation</span>
+                    </div>
+                    <div class="feature">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Risk Assessment</span>
+                    </div>
+                    <div class="feature">
+                        <i class="bi bi-shield-check"></i>
+                        <span>Mitigation Steps</span>
+                    </div>
+                    <div class="feature">
+                        <i class="bi bi-file-earmark-text"></i>
+                        <span>Incident Report</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div class="analysis-loading hidden" id="analysis-loading">
+                <div class="loading-spinner">
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                    <div class="spinner-ring"></div>
+                </div>
+                <h3>Analyzing Threat...</h3>
+                <p>Llama 3 is processing the alert data. This may take a moment.</p>
+            </div>
+
+            <!-- Result State -->
+            <div class="analysis-result hidden" id="analysis-result">
+                <div class="result-header">
+                    <div class="analyzed-alert-info" id="analyzed-alert-info"></div>
+                    <div class="risk-badge-large" id="risk-badge-large">Unknown</div>
+                </div>
+
+                <div class="result-sections">
+                    <div class="result-section" id="section-threat">
+                        <h4><i class="bi bi-exclamation-diamond-fill"></i> Threat Explanation</h4>
+                        <div class="section-content" id="threat-explanation"></div>
+                    </div>
+
+                    <div class="result-section" id="section-category">
+                        <h4><i class="bi bi-tag-fill"></i> Attack Category</h4>
+                        <div class="section-content" id="attack-category"></div>
+                    </div>
+
+                    <div class="result-section" id="section-impact">
+                        <h4><i class="bi bi-lightning-fill"></i> Potential Impact</h4>
+                        <div class="section-content" id="potential-impact"></div>
+                    </div>
+
+                    <div class="result-section" id="section-recommendations">
+                        <h4><i class="bi bi-check2-square"></i> Recommendations</h4>
+                        <div class="section-content" id="recommendations"></div>
+                    </div>
+
+                    <div class="result-section" id="section-summary">
+                        <h4><i class="bi bi-file-text-fill"></i> Incident Summary</h4>
+                        <div class="section-content" id="incident-summary"></div>
+                    </div>
+                </div>
+
+                <div class="result-actions">
+                    <button class="btn-action btn-report" onclick="generateReportFromAnalysis()" id="btn-generate-report">
+                        <i class="bi bi-file-earmark-pdf"></i> Generate Report
+                    </button>
+                </div>
+            </div>
+
+            <!-- Error State -->
+            <div class="analysis-error hidden" id="analysis-error">
+                <div class="error-icon">
+                    <i class="bi bi-exclamation-octagon-fill"></i>
+                </div>
+                <h3>Analysis Failed</h3>
+                <p id="error-message">An error occurred during analysis.</p>
+                <button class="btn-action" onclick="retryAnalysis()" id="btn-retry-analysis">
+                    <i class="bi bi-arrow-clockwise"></i> Retry
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Analysis History -->
+<div class="card-panel history-panel" id="analysis-history-panel">
+    <div class="panel-header">
+        <h2><i class="bi bi-clock-history"></i> Analysis History</h2>
+    </div>
+    <div class="history-list" id="analysis-history-list">
+        <div class="empty-state-small">No analyses performed yet</div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        loadAlertsForAnalysis();
+        loadAnalysisHistory();
+    });
+</script>
+{% endblock %}
